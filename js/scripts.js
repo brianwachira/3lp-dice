@@ -58,4 +58,14 @@ $(document).ready(function(){
       player1hasnotplayed = true;
     }
   });
+
+  $("#hold").click(function(event){
+    if (player1hasnotplayed) {
+      player1.buildingUpScore = 0;
+      player1hasnotplayed = false;
+    }else {
+      player2.buildingUpScore = 0;
+      player1hasnotplayed = true;
+    }
+  });
 });
