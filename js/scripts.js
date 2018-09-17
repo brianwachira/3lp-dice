@@ -25,7 +25,7 @@ pigDice.prototype.playGame = function() {
   }
   if (this.score >99 ) {
   alert("Congratulations " + this.player + ".You have won");
-  this.endGame();
+  pigDice.PlayerCanPLayGame = false;
   }
 }else {
   alert("startGame");
@@ -33,21 +33,29 @@ pigDice.prototype.playGame = function() {
 return diceSide;
 }
 
-pigDice.prototype.endGame = function()  {
-this.score = 0;
-this.PlayerCanPLayGame = false;
-this.buildingUpScore = 0;
-}
-
 function pigRandom()  {
   return Math.round(Math.random() * 6);
 }
 
+function resetGame(player1,player2) {
+  player1.score = 0;
+  player2.Score = 0;
+  player1.buildingUpScore = 0;
+  player2.buildingUpScore = 0;
+
+  $("#player1-roll").empty();
+  $("#player1-score").empty();
+  $("#player2-roll").empty();
+  $("#player2-score").empty();
+
+  player1.PlayerCanPLayGame = true;
+  player2.PlayerCanPLayGame = true;
+}
 //ui logic
 $(document).ready(function(){
   var player1;
   var player2;
-  var player1hasnotplayed = new Boolean(true);
+  var playerhasnotplayed = new Boolean(true);
   var DiceRollResult = 0;
   $(".startGame").click(function(event){
     $(".game-showing").fadeToggle();
@@ -59,26 +67,34 @@ $(document).ready(function(){
   });
 
   $("#roll").click(function(event){
-    if (player1hasnotplayed) {
-      DiceRollResult = player1.playGame();
-      $("#player1-roll").text(DiceRollResult);
-      $("#player1-score").text(player1.score);
-      player1hasnotplayed = false;
+    if (player1.PlayerCanPLayGame && player2.PlayerCanPLayGame) {
+      if (playerhasnotplayed) {
+        DiceRollResult = player1.playGame();
+        $("#player1-roll").text(DiceRollResult);
+        $("#player1-score").text(player1.score);
+        playerhasnotplayed = false;
+      }else {
+        DiceRollResult = player2.playGame();
+        $("#player2-roll").text(DiceRollResult);
+        $("#player2-score").text(player2.score);
+        playerhasnotplayed = true;
+      }
     }else {
-      DiceRollResult = player2.playGame();
-      $("#player2-roll").text(DiceRollResult);
-      $("#player2-score").text(player2.score);
-      player1hasnotplayed = true;
+        resetGame(player1,player2);
     }
   });
 
   $("#hold").click(function(event){
-    if (player1hasnotplayed) {
-      player1.buildingUpScore = 0;
-      player1hasnotplayed = false;
+    if (player1.PlayerCanPLayGame && player2.PlayerCanPLayGame) {
+      if (playerhasnotplayed) {
+        player1.buildingUpScore = 0;
+        playerhasnotplayed = false;
+      }else {
+        player2.buildingUpScore = 0;
+        playerhasnotplayed = true;
+      }
     }else {
-      player2.buildingUpScore = 0;
-      player1hasnotplayed = true;
+      resetGame(player1,player2);
     }
   });
 });
