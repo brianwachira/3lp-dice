@@ -10,3 +10,11 @@ pigDice.prototype.startGame = function()  {
 pigDice.prototype.endGame = function()  {
 
 }
+
+//ui logic
+$(document).ready(function(){
+  $(".startGame").click(function(event){
+    $(".game-showing").fadeToggle();
+    event.preventDefault();
+  });
+});
