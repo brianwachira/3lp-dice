@@ -10,3 +10,6 @@ p {
 #roll-hold  {
   padding-left: 200px;
 }
+.game-showing  {
+  display: none;
+}
