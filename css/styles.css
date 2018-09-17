@@ -1,0 +1,12 @@
+p {
+  text-indent: 10px;
+}
+.startGame  {
+  cursor: pointer;
+}
+.startGame:hover  {
+  text-decoration: underline;
+}
+#roll-hold  {
+  padding-left: 200px;
+}
