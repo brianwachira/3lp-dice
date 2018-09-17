@@ -1,9 +1,10 @@
 //business logic
 
-function pigDice()  {
-  this.player;
+function pigDice(players)  {
+  this.player = players;
   this.score;
   this.buildingUpScore;
+  this.PlayerCanPLayGame = new Boolean();
 }
 pigDice.prototype.startGame = function()  {
   this.score = 0;
@@ -16,20 +17,31 @@ pigDice.prototype.playGame = function() {
    this.score +=diceSide;
    this.buildingUpScore +=diceSide;
 }else {
-  alert("score goes back to 0");
   diceSide = 0;
   this.score -=this.buildingUpScore;
   this.buildingUpScore = 0;
 }
+if (this.score >99 ) {
+alert("Congratulations " + this.player + ".You have won");
+this.endGame();
+}
 return diceSide;
 }
+
 pigDice.prototype.endGame = function()  {
+this.score = 0;
+this.buildingUpScore = 0;
+ $('#player1-roll').empty();
+ $('#player1-score').empty();
+ $('#player2-roll').empty();
+ $('#player1-score').empty();
 
 }
 
 function pigRandom()  {
   return Math.round(Math.random() * 6);
 }
+
 //ui logic
 $(document).ready(function(){
   var player1;
@@ -38,9 +50,9 @@ $(document).ready(function(){
   var DiceRollResult = 0;
   $(".startGame").click(function(event){
     $(".game-showing").fadeToggle();
-    player1 = new pigDice();
+    player1 = new pigDice("player1");
     player1.startGame();
-    player2 = new pigDice();
+    player2 = new pigDice("player1");
     player2.startGame();
     event.preventDefault();
   });
