@@ -9,33 +9,34 @@ function pigDice(players)  {
 pigDice.prototype.startGame = function()  {
   this.score = 0;
   this.buildingUpScore = 0;
+  this.PlayerCanPLayGame = true;
 }
 pigDice.prototype.playGame = function() {
-  var diceSide = pigRandom();
+  if (this.PlayerCanPLayGame) {
+    var diceSide = pigRandom();
 
-  if (diceSide != 1) {
-   this.score +=diceSide;
-   this.buildingUpScore +=diceSide;
+    if (diceSide != 1) {
+     this.score +=diceSide;
+     this.buildingUpScore +=diceSide;
+  }else {
+    diceSide = 0;
+    this.score -=this.buildingUpScore;
+    this.buildingUpScore = 0;
+  }
+  if (this.score >99 ) {
+  alert("Congratulations " + this.player + ".You have won");
+  this.endGame();
+  }
 }else {
-  diceSide = 0;
-  this.score -=this.buildingUpScore;
-  this.buildingUpScore = 0;
-}
-if (this.score >99 ) {
-alert("Congratulations " + this.player + ".You have won");
-this.endGame();
+  alert("startGame");
 }
 return diceSide;
 }
 
 pigDice.prototype.endGame = function()  {
 this.score = 0;
+this.PlayerCanPLayGame = false;
 this.buildingUpScore = 0;
- $('#player1-roll').empty();
- $('#player1-score').empty();
- $('#player2-roll').empty();
- $('#player1-score').empty();
-
 }
 
 function pigRandom()  {
@@ -52,7 +53,7 @@ $(document).ready(function(){
     $(".game-showing").fadeToggle();
     player1 = new pigDice("player1");
     player1.startGame();
-    player2 = new pigDice("player1");
+    player2 = new pigDice("player2");
     player2.startGame();
     event.preventDefault();
   });
