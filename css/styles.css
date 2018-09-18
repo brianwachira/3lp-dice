@@ -13,3 +13,12 @@ p {
 .game-showing  {
   display: none;
 }
+#show-rules  {
+  cursor: pointer;
+}
+#show-rules:hover  {
+  text-decoration: underline;
+}
+.rules-showing  {
+  display: none;
+}
