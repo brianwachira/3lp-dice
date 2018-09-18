@@ -12,44 +12,38 @@ pigDice.prototype.startGame = function()  {
   this.PlayerCanPLayGame = true;
 }
 pigDice.prototype.playGame = function() {
-  if (this.PlayerCanPLayGame) {
     var diceSide = pigRandom();
 
-    if (diceSide != 1) {
-     this.score +=diceSide;
-     this.buildingUpScore +=diceSide;
-  }else {
-    diceSide = 0;
-    this.score -=this.buildingUpScore;
-    this.buildingUpScore = 0;
-  }
-  if (this.score >99 ) {
-  alert("Congratulations " + this.player + ".You have won");
-  pigDice.PlayerCanPLayGame = false;
-  }
-}else {
-  alert("startGame");
-}
+      if (diceSide != 1) {
+        this.score +=diceSide;
+        this.buildingUpScore +=diceSide;
+      }else {
+        diceSide = 0;
+        this.score -=this.buildingUpScore;
+        this.buildingUpScore = 0;
+      }
+      if (this.score >99 ) {
+        alert("Congratulations " + this.player + ".You have won");
+        this.PlayerCanPLayGame = false;
+          }
 return diceSide;
 }
+pigDice.prototype.resetGame = function() {
 
+  this.score = 0;
+  this.buildingUpScore = 0;
+  this.PlayerCanPLayGame = true;
+  resetUi();
+}
 function pigRandom()  {
   return Math.round(Math.random() * 6);
 }
 
-function resetGame(player1,player2) {
-  player1.score = 0;
-  player2.Score = 0;
-  player1.buildingUpScore = 0;
-  player2.buildingUpScore = 0;
-
+function resetUi() {
   $("#player1-roll").empty();
   $("#player1-score").empty();
   $("#player2-roll").empty();
   $("#player2-score").empty();
-
-  player1.PlayerCanPLayGame = true;
-  player2.PlayerCanPLayGame = true;
 }
 //ui logic
 $(document).ready(function(){
@@ -80,7 +74,10 @@ $(document).ready(function(){
         playerhasnotplayed = true;
       }
     }else {
-        resetGame(player1,player2);
+        player1.PlayerCanPLayGame = false;
+        player2.PlayerCanPLayGame = false;
+        player1.resetGame();
+        player2.resetGame();
     }
   });
 
@@ -94,7 +91,10 @@ $(document).ready(function(){
         playerhasnotplayed = true;
       }
     }else {
-      resetGame(player1,player2);
+      player1.PlayerCanPLayGame = false;
+      player2.PlayerCanPLayGame = false;
+      player1.resetGame();
+      player2.resetGame();
     }
   });
 });
