@@ -1,3 +1,7 @@
+body {
+  background: url(../images/pig-dice.jpg);
+  background-size: 1370px 610px;
+}
 p {
   text-indent: 10px;
 }
