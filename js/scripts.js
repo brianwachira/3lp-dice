@@ -59,6 +59,10 @@ $(document).ready(function(){
     event.preventDefault();
   });
 
+  $("#show-rules").click(function(event){
+    $(".rules-showing").fadeToggle();
+  });
+
   $(".startGame").click(function(event){
     $(".game-showing").fadeToggle();
     player1 = new pigDice("player1");
