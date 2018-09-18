@@ -51,6 +51,14 @@ $(document).ready(function(){
   var player2;
   var playerhasnotplayed = new Boolean(true);
   var DiceRollResult = 0;
+  var playWithComputer = new Boolean ();
+
+  $(".custom-radio").click(function(event){
+    playWithComputer = $("input:radio[name=play-with]:checked").val();
+    console.log("Let me play with " + playWithComputer);
+    event.preventDefault();
+  });
+
   $(".startGame").click(function(event){
     $(".game-showing").fadeToggle();
     player1 = new pigDice("player1");
