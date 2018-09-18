@@ -55,7 +55,7 @@ $(document).ready(function(){
 
   $(".custom-radio").click(function(event){
     playWithComputer = $("input:radio[name=play-with]:checked").val();
-    console.log("playing with computer :" + playWithComputer);
+    console.log("Let me play with " + playWithComputer);
     event.preventDefault();
   });
 
@@ -63,43 +63,29 @@ $(document).ready(function(){
     $(".game-showing").fadeToggle();
     player1 = new pigDice("player1");
     player1.startGame();
-    if (!playWithComputer) {
-      player2 = new pigDice("player2");
-      player2.startGame();
-    }else {
-      player2 = new pigDice("Computer");
-      player2.startGame();
-    }
+    player2 = new pigDice("player2");
+    player2.startGame();
     event.preventDefault();
   });
 
   $("#roll").click(function(event){
-    if (playWithComputer === true) {
+    if (player1.PlayerCanPLayGame && player2.PlayerCanPLayGame) {
       if (playerhasnotplayed) {
         DiceRollResult = player1.playGame();
         $("#player1-roll").text(DiceRollResult);
         $("#player1-score").text(player1.score);
         playerhasnotplayed = false;
+      }else {
+        DiceRollResult = player2.playGame();
+        $("#player2-roll").text(DiceRollResult);
+        $("#player2-score").text(player2.score);
+        playerhasnotplayed = true;
       }
     }else {
-      if (player1.PlayerCanPLayGame && player2.PlayerCanPLayGame) {
-        if (playerhasnotplayed) {
-          DiceRollResult = player1.playGame();
-          $("#player1-roll").text(DiceRollResult);
-          $("#player1-score").text(player1.score);
-          playerhasnotplayed = false;
-        }else {
-          DiceRollResult = player2.playGame();
-          $("#player2-roll").text(DiceRollResult);
-          $("#player2-score").text(player2.score);
-          playerhasnotplayed = true;
-        }
-      }else {
-          player1.PlayerCanPLayGame = false;
-          player2.PlayerCanPLayGame = false;
-          player1.resetGame();
-          player2.resetGame();
-      }
+        player1.PlayerCanPLayGame = false;
+        player2.PlayerCanPLayGame = false;
+        player1.resetGame();
+        player2.resetGame();
     }
 
   });
