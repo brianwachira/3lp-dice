@@ -75,7 +75,12 @@ $(document).ready(function(){
 
   $("#roll").click(function(event){
     if (playWithComputer === true) {
-      console.log("playWithComputer is " + playWithComputer);
+      if (playerhasnotplayed) {
+        DiceRollResult = player1.playGame();
+        $("#player1-roll").text(DiceRollResult);
+        $("#player1-score").text(player1.score);
+        playerhasnotplayed = false;
+      }
     }else {
       if (player1.PlayerCanPLayGame && player2.PlayerCanPLayGame) {
         if (playerhasnotplayed) {
